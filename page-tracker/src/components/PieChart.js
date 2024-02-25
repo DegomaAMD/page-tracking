@@ -7,6 +7,7 @@ const data = [
   { id: 2, value: 20, label: 'series C' },
 ];
 
+
 export default function PieActiveArc() {
   return (
     <PieChart

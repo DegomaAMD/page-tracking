@@ -66,7 +66,7 @@ app.post('/api/capture', async (req, res) => {
 // FETCH ALL DATA FROM DATABASE
 app.get('/api/capture', async (req, res) => {
     try {
-        con.query("SELECT * FROM user_info LIMIT 100", (error, results) => {
+        con.query("SELECT * FROM user_info ORDER BY clicked_on DESC LIMIT 100", (error, results) => {
             if (error) {
                 console.error('Error inserting data: ', error);
                 res.status(500).send('Error inserting data into database');
@@ -82,10 +82,46 @@ app.get('/api/capture', async (req, res) => {
     }
 });
 
+// FETCHING TOTAL PER DATE
+app.get('/clicks-per-day', async (req, res) => {
+    try {
+        con.query("SELECT DATE(clicked_on) AS  Date, COUNT(*) AS TotalRows FROM user_info GROUP BY DATE(clicked_on) ORDER BY Date", (error, results) => {
+            if (error) {
+                console.error('Error inserting data: ', error);
+                res.status(500).send('Error inserting data into database');
+                return;
+            } else{
+                console.log('Data inserted: ', results);
+                res.json(results);
+            }
+        });
+    } catch (error) {
+        console.error('Server error: ', error);
+        res.status(500).send('Server error');
+    }
+});
 // FETCHING TOTAL USER DEVICES
 app.get('/device-info', async (req, res) => {
     try {
         con.query("SELECT device_type FROM user_info", (error, results) => {
+            if (error) {
+                console.error('Error inserting data: ', error);
+                res.status(500).send('Error inserting data into database');
+                return;
+            } else{
+                console.log('Data inserted: ', results);
+                res.json(results);
+            }
+        });
+    } catch (error) {
+        console.error('Server error: ', error);
+        res.status(500).send('Server error');
+    }
+});
+// FETCHING TOTAL USER BROWSERS
+app.get('/browser-info', async (req, res) => {
+    try {
+        con.query("SELECT browser_type FROM user_info", (error, results) => {
             if (error) {
                 console.error('Error inserting data: ', error);
                 res.status(500).send('Error inserting data into database');

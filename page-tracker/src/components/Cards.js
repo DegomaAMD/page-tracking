@@ -19,37 +19,59 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Cards() {
 
-    const [loading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
+    const [deviceData, setDeviceData] = useState([]);
+    const [browserData, setBrowserData] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchDeviceData = async () => {
           try {
             const response = await Axios.get('http://localhost:3001/device-info');
             let deviceType = response.data;
           
-            setLoading(false);
-            setData(deviceType);
+
+            setDeviceData(deviceType);
             console.log(deviceType);
 
           } catch (error) {
             console.log(error);
-            setLoading(false);
+
+          }
+        };
+        const fetchBrowserData = async () => {
+          try {
+            const response = await Axios.get('http://localhost:3001/browser-info');
+            let browserType = response.data;
+          
+            setBrowserData(browserType);
+            console.log(browserType);
+
+          } catch (error) {
+            console.log(error);
           }
         };
     
-        fetchData();
+        fetchDeviceData();
+        fetchBrowserData();
       }, []);
+      
 
-      const deviceData = data.reduce((acc, currVal) => {
+      const deviceType = deviceData.reduce((acc, currVal) => {
         const deviceType = currVal.device_type;
         acc[deviceType] = (acc[deviceType] || 0) + 1;
         return acc;
       }, {});
 
-      console.log(deviceData);
+      // console.log(deviceType)
 
-      const dataForDevice = deviceData.map
+      const data = Object.keys(deviceType).map((key, index) => {
+        return {
+          id: index,
+          value: deviceType[key],
+          label: key 
+        }
+
+      });
+      console.log(data);
 
   return (
     <Box sx={{ flexGrow: 1, width: '100%', maxWidth: '98%', marginX: 'auto', marginY: '20px' }}>
@@ -63,13 +85,31 @@ export default function Cards() {
         <Grid xs={6}>
             <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Top Locations</Typography>
             <Item>
-            <PieActiveArc/>
+            <PieChart
+                series={[
+                            {
+                            data,
+                            highlightScope: { faded: 'global', highlighted: 'item' },
+                            faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
+                            },
+                        ]}
+      height={200}
+    />
             </Item>
         </Grid>
         <Grid xs={6}>
         <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Referrers</Typography>
         <Item>
-        <PieActiveArc/>
+        <PieChart
+                series={[
+                            {
+                            data,
+                            highlightScope: { faded: 'global', highlighted: 'item' },
+                            faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
+                            },
+                        ]}
+      height={200}
+    />
             </Item>
         </Grid>
         <Grid xs={4}>
@@ -78,26 +118,43 @@ export default function Cards() {
             <PieChart
                 series={[
                             {
-                            deviceData,
+                            data,
                             highlightScope: { faded: 'global', highlighted: 'item' },
                             faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
                             },
                         ]}
       height={200}
     />
-    {/* <PieActiveArc/> */}
             </Item>
         </Grid>
         <Grid xs={4}>
         <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Top Browsers</Typography>
             <Item>
-            <PieActiveArc/>
+            <PieChart
+                series={[
+                            {
+                            data,
+                            highlightScope: { faded: 'global', highlighted: 'item' },
+                            faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
+                            },
+                        ]}
+      height={200}
+    />
             </Item>
         </Grid>
         <Grid xs={4}>
         <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Top Platforms</Typography>
             <Item>
-            <PieActiveArc/>
+            <PieChart
+                series={[
+                            {
+                            data,
+                            highlightScope: { faded: 'global', highlighted: 'item' },
+                            faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
+                            },
+                        ]}
+      height={200}
+    />
             </Item>
         </Grid>
       </Grid>
