@@ -4,16 +4,17 @@ const Axios = require('axios');
 const mysql = require('mysql');
 const cors = require("cors");
 const port = 3001;
+require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
 const con = mysql.createConnection({
-    user: 'root',
-    host: 'localhost',
-    password: '',
-    database: 'page_click_tracking',
+    user: "root",
+    host: "localhost" ,
+    password: "",
+    database: "page_click_tracking",
 });
 
 con.connect(error => {
@@ -122,6 +123,78 @@ app.get('/device-info', async (req, res) => {
 app.get('/browser-info', async (req, res) => {
     try {
         con.query("SELECT browser_type FROM user_info", (error, results) => {
+            if (error) {
+                console.error('Error inserting data: ', error);
+                res.status(500).send('Error inserting data into database');
+                return;
+            } else{
+                console.log('Data inserted: ', results);
+                res.json(results);
+            }
+        });
+    } catch (error) {
+        console.error('Server error: ', error);
+        res.status(500).send('Server error');
+    }
+});
+// FETCHING TOTAL REFERRER
+app.get('/referrer-info', async (req, res) => {
+    try {
+        con.query("SELECT referrer FROM user_info", (error, results) => {
+            if (error) {
+                console.error('Error inserting data: ', error);
+                res.status(500).send('Error inserting data into database');
+                return;
+            } else{
+                console.log('Data inserted: ', results);
+                res.json(results);
+            }
+        });
+    } catch (error) {
+        console.error('Server error: ', error);
+        res.status(500).send('Server error');
+    }
+});
+// FETCHING TOTAL COUNTRY
+app.get('/country-info', async (req, res) => {
+    try {
+        con.query("SELECT user_country AS country, COUNT(*) AS total_country FROM user_info GROUP BY user_country ORDER BY total_country DESC LIMIT 5", (error, results) => {
+            if (error) {
+                console.error('Error inserting data: ', error);
+                res.status(500).send('Error inserting data into database');
+                return;
+            } else{
+                console.log('Data inserted: ', results);
+                res.json(results);
+            }
+        });
+    } catch (error) {
+        console.error('Server error: ', error);
+        res.status(500).send('Server error');
+    }
+});
+// FETCHING TOTAL CLICK
+app.get('/click-info', async (req, res) => {
+    try {
+        con.query("SELECT id , COUNT(*) AS total_click FROM user_info", (error, results) => {
+            if (error) {
+                console.error('Error inserting data: ', error);
+                res.status(500).send('Error inserting data into database');
+                return;
+            } else{
+                console.log('Data inserted: ', results);
+                res.json(results);
+            }
+        });
+    } catch (error) {
+        console.error('Server error: ', error);
+        res.status(500).send('Server error');
+    }
+});
+// FETCHING TOTAL UNIQUE CLICK
+app.get('/click-unique-info', async (req, res) => {
+    try {
+        con.query("SELECT COUNT(DISTINCT user_ip) AS total_unique_click FROM user_info", (error, results) => {
             if (error) {
                 console.error('Error inserting data: ', error);
                 res.status(500).send('Error inserting data into database');

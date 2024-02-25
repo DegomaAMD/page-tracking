@@ -24,7 +24,7 @@ export default function BasicArea() {
     fetchData();
 
   }, []);
-  console.log(totalClickData);
+
   const dates = totalClickData.map(item => {
 
     const date = new Date(item.Date);
@@ -36,12 +36,18 @@ export default function BasicArea() {
     return visitDateTime;
   });
   const totals = totalClickData.map(item => item.TotalRows);
-console.log(dates);
+console.log(dates, totals);
+
+const xAxisCommon = {
+  data: dates,
+  scaleType: 'time',
+};
+
 
   return (
     <div style={{width: "100%"}} >
         <LineChart
-            xAxis={[{ data: dates } ]}
+            xAxis={[{ ...xAxisCommon, scaleType: 'point' } ]}
             series={[
                 {
                 data: totals,

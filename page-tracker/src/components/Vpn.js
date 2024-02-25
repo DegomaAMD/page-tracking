@@ -1,32 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Axios from 'axios';
-import Table from './Table';
+import { Typography } from '@mui/material';
+import Box from '@mui/material/Box';
 
 function Vpn() {
+
     function chuyenHuongTheoThietBiVaHeDieuHanh() {
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-        // Kiểm tra thiết bị iOS
+        // Kiá»ƒm tra thiáº¿t bá»‹ iOS
         if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
             window.location.replace("https://apps.apple.com/vn/app/1-1-1-1-faster-internet/id1423538627?l=vi");
         }
-        // Kiểm tra thiết bị Android
+        // Kiá»ƒm tra thiáº¿t bá»‹ Android
         else if (/android/i.test(userAgent)) {
             window.location.replace("https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone");
         }
-        // Kiểm tra hệ điều hành Windows
+        // Kiá»ƒm tra há»‡ Ä‘iá»u hÃ nh Windows
         else if (/Win/.test(userAgent)) {
             window.location.replace("https://1111-releases.cloudflareclient.com/windows/Cloudflare_WARP_Release-x64.msi");
         }
-        // Kiểm tra hệ điều hành MacOS
+        // Kiá»ƒm tra há»‡ Ä‘iá»u hÃ nh MacOS
         else if (/Mac/.test(userAgent)) {
             window.location.replace("https://1111-releases.cloudflareclient.com/mac/Cloudflare_WARP.zip");
         }
-        // Trường hợp khác
+        // TrÆ°á»ng há»£p khÃ¡c
         else {
-            // Thêm URL hoặc mã xử lý cho các trường hợp khác nếu cần
+            // ThÃªm URL hoáº·c mÃ£ xá»­ lÃ½ cho cÃ¡c trÆ°á»ng há»£p khÃ¡c náº¿u cáº§n
         }
     }
+
 
     const getDeviceType = (userAgent) => {
         userAgent = userAgent || navigator.userAgent;
@@ -91,6 +94,12 @@ function Vpn() {
     
   return (
     <>
+    <Box sx={{width: '100%', maxWidth: '98%', marginX: 'auto', marginY: '20px'}}>
+        <Typography variant="h1" gutterBottom sx={{paddingY: '10px', fontSize: '18px', fontWeight: '400'}}>
+            File Downloaded
+        </Typography>
+    </Box>
+
     </>
   )
 }

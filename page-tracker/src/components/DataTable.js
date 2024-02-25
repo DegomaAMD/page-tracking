@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MUIDataTable from "mui-datatables";
-import { CircularProgress, Container } from '@mui/material';
+import { Button, CircularProgress, Container } from '@mui/material';
 import {
   createTheme,
   StyledEngineProvider,
@@ -93,6 +93,10 @@ export default function DataTable() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
 
+    const pageReload = () => {
+      window.location.reload();
+    }
+
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -113,9 +117,13 @@ export default function DataTable() {
 
   return (
     <>
-    <Typography variant="h1" gutterBottom sx={{paddingX: '10px', fontSize: '48px', fontWeight: '700', borderBottom: '1px solid #d4d7dd', paddingBottom: '10px'}}>
-        Dashboard
-    </Typography>
+    <Box sx={{paddingX: '10px', borderBottom: '1px solid #d4d7dd', paddingBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: {xs: 'column', md:'row'}}}>
+      <Typography variant="h1" gutterBottom sx={{fontSize: '48px', fontWeight: '700'}}>
+          Dashboard
+      </Typography>
+      <Button onClick={pageReload} variant="contained" color='success' sx={{color: '#fff', paddingX: '20px', fontSize: '14px', textTransform: 'capitalize', borderRadius: '10px'}}>Refresh</Button>
+    </Box>
+    
     <Cards />
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={createTheme()}>
@@ -167,7 +175,7 @@ export default function DataTable() {
                         </Tooltip> {d.user_ip}
                       </Box>,
                       d.uri,
-                      <Link href="#" underline="none">{d.link}</Link>,
+                      <Link href={d.link} underline="none">{d.link}</Link>,
                       d.host,
                       d.referrer,
                       dateTimeFormat(d.clicked_on),
