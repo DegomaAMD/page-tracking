@@ -78,7 +78,7 @@ function Vpn() {
             browserType: getBrowser(navigator.userAgent),
         };
 
-        Axios.post('https://page-tracking.vercel.app/api/capture', clientData)
+        Axios.post('http://localhost:3000/api/capture', clientData)
             .then(response => {
                 console.log('Data: ', response.data);
                 chuyenHuongTheoThietBiVaHeDieuHanh();
