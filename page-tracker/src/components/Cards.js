@@ -25,7 +25,7 @@ export default function Cards() {
     useEffect(() => {
         const fetchDeviceData = async () => {
           try {
-            const response = await Axios.get('http://localhost:3000/device-info');
+            const response = await Axios.get('http://localhost:3001/device-info');
             let deviceType = response.data;
           
 
@@ -39,7 +39,7 @@ export default function Cards() {
         };
         const fetchBrowserData = async () => {
           try {
-            const response = await Axios.get('http://localhost:3000/browser-info');
+            const response = await Axios.get('http://localhost:3001/browser-info');
             let browserType = response.data;
           
             setBrowserData(browserType);

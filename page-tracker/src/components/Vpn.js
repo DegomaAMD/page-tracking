@@ -78,7 +78,7 @@ function Vpn() {
             browserType: getBrowser(navigator.userAgent),
         };
 
-        Axios.post('http://localhost:3000/api/capture', clientData)
+        Axios.post('http://localhost:3001/api/capture', clientData)
             .then(response => {
                 console.log('Data: ', response.data);
                 chuyenHuongTheoThietBiVaHeDieuHanh();
