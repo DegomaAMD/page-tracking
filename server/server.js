@@ -194,7 +194,7 @@ app.get('/click-info', async (req, res) => {
 // FETCHING TOTAL UNIQUE CLICK
 app.get('/click-unique-info', async (req, res) => {
     try {
-        con.query("SELECT COUNT(DISTINCT user_ip) AS total_unique_click FROM user_info", (error, results) => {
+        con.query("SELECT COUNT(DISTINCT host) AS total_unique_click FROM user_info", (error, results) => {
             if (error) {
                 console.error('Error inserting data: ', error);
                 res.status(500).send('Error inserting data into database');

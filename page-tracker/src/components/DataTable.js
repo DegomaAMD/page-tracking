@@ -29,7 +29,7 @@ const columns = [
     name: "user_ip",
     label: "IP",
     options: {
-      filter: true,
+      filter: false,
       sort: true
     }
   },
@@ -54,7 +54,7 @@ const columns = [
     label: "HOST",
     options: {
       filter: true,
-      sort: false
+      sort: true
     }
   },
   {
@@ -62,7 +62,7 @@ const columns = [
     label: "REFERRER",
     options: {
       filter: true,
-      sort: false
+      sort: true
     }
   },
   {
@@ -70,14 +70,14 @@ const columns = [
     label: "CLICKED ON",
     options: {
       filter: true,
-      sort: false
+      sort: true
     }
   },
   {
     name: "device_type",
     label: "INFO",
     options: {
-      filter: true,
+      filter: false,
       sort: false
     }
   },
