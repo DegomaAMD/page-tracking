@@ -10,7 +10,7 @@ export default function BasicArea() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Axios.get('http://localhost:3001/clicks-per-day');
+        const response = await Axios.get('https://page-tracking.vercel.app/clicks-per-day');
         let totalClick = response.data;
       
 

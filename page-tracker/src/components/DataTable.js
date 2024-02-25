@@ -96,7 +96,7 @@ export default function DataTable() {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await Axios.get('http://localhost:3001/api/capture');
+            const response = await Axios.get('https://page-tracking.vercel.app/api/capture');
             let data = response.data;
           
             setLoading(false);
