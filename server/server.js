@@ -11,10 +11,10 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const con = mysql.createConnection({
-    user: "root",
+    user: "stats",
     host: "localhost" ,
-    password: "",
-    database: "page_click_tracking",
+    password: "J35AtagGxasqQq3",
+    database: "stats",
 });
 
 con.connect(error => {
@@ -140,7 +140,7 @@ app.get('/browser-info', async (req, res) => {
 // FETCHING TOTAL REFERRER
 app.get('/referrer-info', async (req, res) => {
     try {
-        con.query("SELECT referrer AS referrer_info, COUNT(*) AS total_referrer FROM user_info GROUP BY user_country ORDER BY total_referrer DESC LIMIT 5", (error, results) => {
+        con.query("SELECT referrer FROM user_info", (error, results) => {
             if (error) {
                 console.error('Error inserting data: ', error);
                 res.status(500).send('Error inserting data into database');
@@ -158,7 +158,7 @@ app.get('/referrer-info', async (req, res) => {
 // FETCHING TOTAL COUNTRY
 app.get('/country-info', async (req, res) => {
     try {
-        con.query("SELECT user_country AS country, COUNT(*) AS total_country FROM user_info GROUP BY user_country ORDER BY total_country DESC LIMIT 5", (error, results) => {
+        con.query("SELECT user_country FROM user_info", (error, results) => {
             if (error) {
                 console.error('Error inserting data: ', error);
                 res.status(500).send('Error inserting data into database');

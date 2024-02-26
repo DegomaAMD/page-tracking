@@ -129,28 +129,29 @@ export default function Cards() {
           acc[dataType] = (acc[dataType] || 0) + 1;
           return acc;
         }, {});
-        const referrerResult = referrerData.map((item, index) => {
 
-          if(item.referrer_info){
-            const hostName = new URL(item.referrer_info);
-            
-            return hostName.hostname;
+        const coutryResult = countryData.reduce((acc, currVal) => {
+
+            const dataType = currVal.user_country === null ? 'Unknown' : currVal.user_country;
+            acc[dataType] = (acc[dataType] || 0) + 1;
+            return acc;
+
+          
+        }, {});
+        const referrerResult = referrerData.reduce((acc, currVal) => {
+          if(currVal.referrer !== ""){
+            const dataType = currVal.referrer;
+            acc[dataType] = (acc[dataType] || 0) + 1;
+            return acc;
+
+          } else {
+            acc['Unknown'] = (acc['Unknown'] || 0) + 1;
+            return acc;
           }
           
-          return {
-            id: index,
-            value: item.total_referrer,
-            label:  item.referrer_info === "" ? 'Unknown' : hostName.hostname
-          }
-          
-        });
-
-        const countryResult = countryData.map((item, index) => ({
-          id: index,
-          value: item.total_country,
-          label: item.country === null ? 'Unknown' : item.country
-
-        }));
+        }, {});
+        
+console.log(coutryResult)
 
         const clickResult = clickData.map((d) => d.total_click);
         const uniqueClickResult = uniqueClickData.map((d) => d.total_unique_click);
@@ -161,14 +162,37 @@ export default function Cards() {
           value: deviceResult[key],
           label: key 
         }
-      });
+      }).sort((a, b) => b.value - a.value);
       const browserPieData = Object.keys(browserResult).map((key, index) => {
         return {
           id: index,
           value: browserResult[key],
           label: key 
         }
-      });
+      }).sort((a, b) => b.value - a.value);
+
+      const referrerPieData  = Object.keys(referrerResult).map((key, index) => {
+
+        return {
+          id: index,
+          value: referrerResult[key],
+          label: key
+        }
+        
+      }).sort((a, b) => b.value - a.value);
+      const counrtyPieData  = Object.keys(coutryResult).map((key, index) => {
+
+        return {
+          id: index,
+          value: referrerResult[key],
+          label: key
+        }
+        
+      }).sort((a, b) => b.value - a.value);
+
+
+      const topReferrerPieData = referrerPieData.slice(0, 5);
+      console.log(referrerPieData)
 
 
   return (
@@ -223,7 +247,7 @@ export default function Cards() {
             <PieChart
                 series={[
                             {
-                            data: countryResult,
+                            data: counrtyPieData,
                             highlightScope: { faded: 'global', highlighted: 'item' },
                             faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
                             },
@@ -254,7 +278,7 @@ export default function Cards() {
         <PieChart
                 series={[
                             {
-                              data: referrerResult,
+                              data: topReferrerPieData,
                             highlightScope: { faded: 'global', highlighted: 'item' },
                             faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
                             },
