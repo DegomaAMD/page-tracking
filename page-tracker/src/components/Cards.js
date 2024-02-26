@@ -131,8 +131,12 @@ export default function Cards() {
         }, {});
         const referrerResult = referrerData.map((item, index) => {
 
-          const hostName = new URL(item.referrer_info);
-
+          if(item.referrer_info){
+            const hostName = new URL(item.referrer_info);
+            
+            return hostName.hostname;
+          }
+          
           return {
             id: index,
             value: item.total_referrer,
