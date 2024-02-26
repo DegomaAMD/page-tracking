@@ -170,7 +170,7 @@ export default function Cards() {
                <div>
                <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '18px', fontWeight: '400'}}>Total Clicks</Typography>
                {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
           <CircularProgress />
         </div>
       ) : (
@@ -187,7 +187,7 @@ export default function Cards() {
                <div>
                <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '18px', fontWeight: '400'}}>Unique Clicks</Typography>
                {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
           <CircularProgress />
         </div>
       ) : (
@@ -206,7 +206,7 @@ export default function Cards() {
             <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Top Locations</Typography>
             <Item sx={{paddingY: '20px'}}>
             {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
           <CircularProgress />
         </div>
       ) : (
@@ -237,7 +237,7 @@ export default function Cards() {
         <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Referrers</Typography>
         <Item sx={{paddingY: '20px'}}>
         {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
           <CircularProgress />
         </div>
       ) : (
@@ -268,7 +268,7 @@ export default function Cards() {
         <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Top Devices</Typography>
             <Item sx={{paddingY: '20px'}}>
             {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
           <CircularProgress />
         </div>
       ) : (
@@ -325,7 +325,7 @@ export default function Cards() {
         <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Top Platforms</Typography>
             <Item sx={{paddingY: '20px'}}>
             {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
           <CircularProgress />
         </div>
       ) : (
