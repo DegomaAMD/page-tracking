@@ -170,7 +170,7 @@ export default function Cards() {
                <div>
                <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '18px', fontWeight: '400'}}>Total Clicks</Typography>
                {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
           <CircularProgress />
         </div>
       ) : (
@@ -187,7 +187,7 @@ export default function Cards() {
                <div>
                <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '18px', fontWeight: '400'}}>Unique Clicks</Typography>
                {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
           <CircularProgress />
         </div>
       ) : (
@@ -206,7 +206,7 @@ export default function Cards() {
             <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Top Locations</Typography>
             <Item sx={{paddingY: '20px'}}>
             {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
           <CircularProgress />
         </div>
       ) : (
@@ -237,7 +237,7 @@ export default function Cards() {
         <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Referrers</Typography>
         <Item sx={{paddingY: '20px'}}>
         {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
           <CircularProgress />
         </div>
       ) : (
@@ -268,7 +268,7 @@ export default function Cards() {
         <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Top Devices</Typography>
             <Item sx={{paddingY: '20px'}}>
             {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
           <CircularProgress />
         </div>
       ) : (
@@ -298,6 +298,11 @@ export default function Cards() {
         <Grid xs={12} md={4}>
         <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Top Browsers</Typography>
             <Item sx={{paddingY: '20px'}}>
+            {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
+          <CircularProgress />
+        </div>
+      ) : (
             <PieChart
                 series={[
                             {
@@ -318,14 +323,14 @@ export default function Cards() {
                           }
                         }}
       height={200}
-    />
+    />)}
             </Item>
         </Grid>
         <Grid xs={12} md={4}>
         <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Top Platforms</Typography>
             <Item sx={{paddingY: '20px'}}>
             {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
           <CircularProgress />
         </div>
       ) : (

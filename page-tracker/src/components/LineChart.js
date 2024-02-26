@@ -49,7 +49,7 @@ const xAxisCommon = {
   return (
     <div style={{width: "100%"}} >
       {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '300px' }}>
           <CircularProgress />
         </div>
       ) : (
