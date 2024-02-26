@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { LineChart } from '@mui/x-charts/LineChart';
+import { CircularProgress } from '@mui/material';
 
 
 export default function BasicArea() {
 
   const [totalClickData, setTotalClickData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,6 +48,11 @@ const xAxisCommon = {
 
   return (
     <div style={{width: "100%"}} >
+      {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </div>
+      ) : (
         <LineChart
             xAxis={[{ ...xAxisCommon, scaleType: 'point' } ]}
             series={[
@@ -55,7 +62,7 @@ const xAxisCommon = {
                 },
             ]}
             height={300}
-            />
+            />)}
     </div>
     
   );

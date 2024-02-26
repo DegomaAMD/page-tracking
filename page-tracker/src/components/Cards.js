@@ -6,7 +6,8 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import BasicArea from './LineChart';
 import { Typography } from '@mui/material';
-import { PieChart, LineChart } from '@mui/x-charts/PieChart';
+import { PieChart } from '@mui/x-charts/PieChart';
+import { CircularProgress } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -24,6 +25,7 @@ export default function Cards() {
     const [countryData, setCountryData] = useState([]);
     const [clickData, setClickData] = useState([]);
     const [uniqueClickData, setUniqueClickData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchDeviceData = async () => {
@@ -32,9 +34,11 @@ export default function Cards() {
             let deviceType = response.data;
         
             setDeviceData(deviceType);
+            setLoading(false);
 
           } catch (error) {
             console.log(error);
+            setLoading(false);
 
           }
         };
@@ -44,9 +48,11 @@ export default function Cards() {
             let browserType = response.data;
           
             setBrowserData(browserType);
+            setLoading(false);
 
           } catch (error) {
             console.log(error);
+            setLoading(false);
           }
         };
         const fetchReferrerData = async () => {
@@ -55,9 +61,11 @@ export default function Cards() {
             let referrerType = response.data;
           
             setReferrerData(referrerType);
+            setLoading(false);
 
           } catch (error) {
             console.log(error);
+            setLoading(false);
           }
         };
         const fetchLocationData = async () => {
@@ -66,9 +74,11 @@ export default function Cards() {
             let countryType = response.data;
           
             setCountryData(countryType);
+            setLoading(false);
 
           } catch (error) {
             console.log(error);
+            setLoading(false);
           }
         };
         const fetchClickData = async () => {
@@ -77,9 +87,11 @@ export default function Cards() {
             let clickType = response.data;
           
             setClickData(clickType);
+            setLoading(false);
 
           } catch (error) {
             console.log(error);
+            setLoading(false);
           }
         };
         const fetchUniqueClickData = async () => {
@@ -88,9 +100,11 @@ export default function Cards() {
             let uniqueClickType = response.data;
           
             setUniqueClickData(uniqueClickType);
+            setLoading(false);
 
           } catch (error) {
             console.log(error);
+            setLoading(false);
           }
         };
 
@@ -115,15 +129,11 @@ export default function Cards() {
           acc[dataType] = (acc[dataType] || 0) + 1;
           return acc;
         }, {});
-        const referrerResult = referrerData.reduce((acc, currVal) => {
-          const dataType = currVal.referrer;
-          if(dataType){
-            acc[referrerData] = (acc[referrerData] || 0) + 1;
-          } else {
-            acc['Unknown'] = (acc['Unknown'] || 0) + 1;
-          }
-          return acc;
-        }, {});
+        const referrerResult = referrerData.map((item, index) => ({
+          id: index,
+          value: item.total_referrer,
+          label: item.referrer_info === null ? 'Unknown' : item.referrer_info
+        }));
 
         const countryResult = countryData.map((item, index) => ({
           id: index,
@@ -141,7 +151,6 @@ export default function Cards() {
           value: deviceResult[key],
           label: key 
         }
-
       });
       const browserPieData = Object.keys(browserResult).map((key, index) => {
         return {
@@ -149,17 +158,9 @@ export default function Cards() {
           value: browserResult[key],
           label: key 
         }
-
       });
-      const referrerPieData = Object.keys(referrerResult).map((key, index) => {
-        return {
-          id: index,
-          value: referrerResult[key],
-          label: key 
-        }
 
-      });
-      console.log(clickData.total_click);
+
   return (
     <Box sx={{ flexGrow: 1, width: '100%', maxWidth: '98%', marginX: 'auto', marginY: '20px' }}>
       <Grid container spacing={2}>
@@ -168,7 +169,13 @@ export default function Cards() {
               <i class="fa-solid fa-arrow-pointer"></i>
                <div>
                <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '18px', fontWeight: '400'}}>Total Clicks</Typography>
+               {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </div>
+      ) : (
                <Typography variant="h2" gutterBottom sx={{fontSize: '18px', fontWeight: '400', textAlign:'left'}}>{clickResult}</Typography>
+      )}
                
                </div>
             </Item>
@@ -179,7 +186,13 @@ export default function Cards() {
               <i class="fa-solid fa-arrow-pointer"></i>
                <div>
                <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '18px', fontWeight: '400'}}>Unique Clicks</Typography>
+               {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </div>
+      ) : (
                <Typography variant="h2" gutterBottom sx={{fontSize: '18px', fontWeight: '400', textAlign:'left'}}>{uniqueClickResult}</Typography>
+      )}
                </div>
             </Item>
         </Grid>
@@ -192,6 +205,11 @@ export default function Cards() {
         <Grid xs={12} md={6}>
             <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Top Locations</Typography>
             <Item sx={{paddingY: '20px'}}>
+            {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </div>
+      ) : (
             <PieChart
                 series={[
                             {
@@ -212,16 +230,21 @@ export default function Cards() {
                           }
                         }}
       height={200}
-    />
+    />)}
             </Item>
         </Grid>
         <Grid xs={12} md={6}>
         <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Referrers</Typography>
         <Item sx={{paddingY: '20px'}}>
+        {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </div>
+      ) : (
         <PieChart
                 series={[
                             {
-                              data: referrerPieData,
+                              data: referrerResult,
                             highlightScope: { faded: 'global', highlighted: 'item' },
                             faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
                             },
@@ -238,12 +261,17 @@ export default function Cards() {
                           }
                         }}
       height={200}
-    />
+    />)}
             </Item>
         </Grid>
         <Grid xs={12} md={4}>
         <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Top Devices</Typography>
             <Item sx={{paddingY: '20px'}}>
+            {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </div>
+      ) : (
             <PieChart
                 series={[
                             {
@@ -264,7 +292,7 @@ export default function Cards() {
                           }
                         }}
       height={200}
-    />
+    />)}
             </Item>
         </Grid>
         <Grid xs={12} md={4}>
@@ -296,6 +324,11 @@ export default function Cards() {
         <Grid xs={12} md={4}>
         <Typography variant="h2" gutterBottom sx={{paddingY: '10px', fontSize: '24px', fontWeight: '600'}}>Top Platforms</Typography>
             <Item sx={{paddingY: '20px'}}>
+            {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </div>
+      ) : (
             <PieChart
                 series={[
                             {
@@ -317,7 +350,7 @@ export default function Cards() {
                   }
                 }}
                       height={200}  
-    />
+    />)}
             </Item>
         </Grid>
       </Grid>
