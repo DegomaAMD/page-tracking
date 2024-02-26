@@ -129,11 +129,17 @@ export default function Cards() {
           acc[dataType] = (acc[dataType] || 0) + 1;
           return acc;
         }, {});
-        const referrerResult = referrerData.map((item, index) => ({
-          id: index,
-          value: item.total_referrer,
-          label: item.referrer_info === null ? 'Unknown' : item.referrer_info
-        }));
+        const referrerResult = referrerData.map((item, index) => {
+
+          const hostName = new URL(item.referrer_info);
+
+          return {
+            id: index,
+            value: item.total_referrer,
+            label:  item.referrer_info === "" ? 'Unknown' : hostName.hostname
+          }
+          
+        });
 
         const countryResult = countryData.map((item, index) => ({
           id: index,

@@ -168,13 +168,19 @@ export default function DataTable() {
 
               return visitDateTime;
             }
+
+            const paths = (pathName) => {
+              const url = new URL(pathName);
+
+              return url.pathname;
+            }
             
             return [  <Box sx={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: '10px'}}>
                         <Tooltip title={d.user_country === null ? 'unknown' : d.user_country}>
                           {d.user_country === 'Vietnam' ? <img src={Vietnam} alt='vietnam flag icon' style={{width: '20px'}}/> : <img src={Worldwide} alt='world icon' style={{width: '20px'}}/>}
                         </Tooltip> {d.user_ip}
                       </Box>,
-                      d.uri,
+                      paths(d.uri),
                       <Link href={d.link} underline="none">{d.link}</Link>,
                       d.host,
                       d.referrer,
