@@ -100,7 +100,7 @@ export default function DataTable() {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await Axios.get('http://localhost:3001/api/capture');
+            const response = await Axios.get('https://hb88la.000webhostapp.com/fetchAllData.php');
             let data = response.data;
           
             setLoading(false);
@@ -177,7 +177,7 @@ export default function DataTable() {
             
             return [  <Box sx={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: '10px'}}>
                         <Tooltip title={d.user_country === null ? 'unknown' : d.user_country}>
-                          {d.user_country === 'Vietnam' ? <img src={Vietnam} alt='vietnam flag icon' style={{width: '20px'}}/> : <img src={Worldwide} alt='world icon' style={{width: '20px'}}/>}
+                          {d.user_country === 'Unknown' || d.user_country === 'Local' ? <img src={Worldwide} alt='world icon' style={{width: '20px'}}/> : <img src={`https://flagsapi.com/${d.user_country}/flat/64.png`} style={{width: '20px'}}/>}
                         </Tooltip> {d.user_ip}
                       </Box>,
                       paths(d.uri),

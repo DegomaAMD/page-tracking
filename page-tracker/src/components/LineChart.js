@@ -12,7 +12,7 @@ export default function BasicArea() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Axios.get('http://localhost:3001/clicks-per-day');
+        const response = await Axios.get('https://hb88la.000webhostapp.com/fetchClicksPerDay.php');
         let totalClick = response.data;
       
 
@@ -40,7 +40,6 @@ export default function BasicArea() {
     return visitDateTime;
   });
   const totals = totalClickData.map(item => item.TotalRows);
-console.log(dates, totals);
 
 const xAxisCommon = {
   data: dates,

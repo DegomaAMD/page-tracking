@@ -9,8 +9,9 @@ function App() {
  <Router>
   
   <Routes>
-    <Route exact path='/hb88-1111' element={<Vpn/>}/>
-    <Route exact path='/' element={<DataTable/>}/>
+
+    <Route exact path='/' element={<Vpn/>}/>
+    <Route exact path='/dashboard' element={<DataTable/>}/>
   </Routes>
  </Router>
  </>

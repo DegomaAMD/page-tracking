@@ -30,7 +30,7 @@ export default function Cards() {
     useEffect(() => {
         const fetchDeviceData = async () => {
           try {
-            const response = await Axios.get('http://localhost:3001/device-info');
+            const response = await Axios.get('https://hb88la.000webhostapp.com/fetchDeviceInfo.php');
             let deviceType = response.data;
         
             setDeviceData(deviceType);
@@ -44,7 +44,7 @@ export default function Cards() {
         };
         const fetchBrowserData = async () => {
           try {
-            const response = await Axios.get('http://localhost:3001/browser-info');
+            const response = await Axios.get('https://hb88la.000webhostapp.com/fetchBrowserInfo.php');
             let browserType = response.data;
           
             setBrowserData(browserType);
@@ -57,7 +57,7 @@ export default function Cards() {
         };
         const fetchReferrerData = async () => {
           try {
-            const response = await Axios.get('http://localhost:3001/referrer-info');
+            const response = await Axios.get('https://hb88la.000webhostapp.com/fetchTotalReferrer.php');
             let referrerType = response.data;
           
             setReferrerData(referrerType);
@@ -70,7 +70,7 @@ export default function Cards() {
         };
         const fetchLocationData = async () => {
           try {
-            const response = await Axios.get('http://localhost:3001/country-info');
+            const response = await Axios.get('https://hb88la.000webhostapp.com/fetchTotalCountry.php');
             let countryType = response.data;
           
             setCountryData(countryType);
@@ -83,7 +83,7 @@ export default function Cards() {
         };
         const fetchClickData = async () => {
           try {
-            const response = await Axios.get('http://localhost:3001/click-info');
+            const response = await Axios.get('https://hb88la.000webhostapp.com/fetchTotalClick.php');
             let clickType = response.data;
           
             setClickData(clickType);
@@ -96,7 +96,7 @@ export default function Cards() {
         };
         const fetchUniqueClickData = async () => {
           try {
-            const response = await Axios.get('http://localhost:3001/click-unique-info');
+            const response = await Axios.get('https://hb88la.000webhostapp.com/fetchUniqueClick.php');
             let uniqueClickType = response.data;
           
             setUniqueClickData(uniqueClickType);
@@ -150,8 +150,7 @@ export default function Cards() {
           }
           
         }, {});
-        
-console.log(coutryResult)
+      
 
         const clickResult = clickData.map((d) => d.total_click);
         const uniqueClickResult = uniqueClickData.map((d) => d.total_unique_click);
@@ -192,7 +191,9 @@ console.log(coutryResult)
 
 
       const topReferrerPieData = referrerPieData.slice(0, 5);
-      console.log(referrerPieData)
+      const topBrowserPieData = browserPieData.slice(0, 5);
+      const topDevicePieData = devicePieData.slice(0, 5);
+      const topCounrtyPieData = counrtyPieData.slice(0, 5);
 
 
   return (
@@ -247,7 +248,7 @@ console.log(coutryResult)
             <PieChart
                 series={[
                             {
-                            data: counrtyPieData,
+                            data: topCounrtyPieData,
                             highlightScope: { faded: 'global', highlighted: 'item' },
                             faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
                             },
@@ -309,7 +310,7 @@ console.log(coutryResult)
             <PieChart
                 series={[
                             {
-                              data: devicePieData,
+                              data: topDevicePieData,
                             highlightScope: { faded: 'global', highlighted: 'item' },
                             faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
                             },
@@ -340,7 +341,7 @@ console.log(coutryResult)
             <PieChart
                 series={[
                             {
-                              data: browserPieData,
+                              data: topBrowserPieData,
                             highlightScope: { faded: 'global', highlighted: 'item' },
                             faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
                             },

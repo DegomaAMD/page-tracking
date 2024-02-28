@@ -11,10 +11,10 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const con = mysql.createConnection({
-    user: "stats",
-    host: "localhost" ,
-    password: "J35AtagGxasqQq3",
-    database: "stats",
+    user: 'root',
+    host: 'localhost',
+    password: '',
+    database: 'page_click_tracking',
 });
 
 con.connect(error => {
