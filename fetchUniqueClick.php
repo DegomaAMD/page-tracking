@@ -1,7 +1,7 @@
 <?php
 include 'db_connection.php';
 
-$query = "SELECT COUNT(DISTINCT host) AS total_unique_click FROM user_info";
+$query = "SELECT COUNT(DISTINCT user_ip) AS total_unique_click FROM user_info";
 $result = $conn->query($query);
 
 if ($result === false) {

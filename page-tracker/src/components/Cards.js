@@ -120,17 +120,30 @@ export default function Cards() {
       
 
         const deviceResult = deviceData.reduce((acc, currVal) => {
-          const dataType = currVal.device_type;
-          acc[dataType] = (acc[dataType] || 0) + 1;
-          return acc;
-        }, {});
-        const browserResult = browserData.reduce((acc, currVal) => {
-          const dataType = currVal.browser_type;
-          acc[dataType] = (acc[dataType] || 0) + 1;
-          return acc;
+          if(currVal.device_type !== "" && currVal.device_type !== null){
+            const dataType = currVal.device_type;
+            acc[dataType] = (acc[dataType] || 0) + 1;
+            return acc;
+          } else{
+            acc["Unknown"] = (acc["Unknown"] || 0) + 1;
+            return acc;
+          }
+
         }, {});
 
-        const coutryResult = countryData.reduce((acc, currVal) => {
+        const browserResult = browserData.reduce((acc, currVal) => {
+          if(currVal.browser_type !== "" && currVal.browser_type !== null){
+            const dataType = currVal.browser_type;
+            acc[dataType] = (acc[dataType] || 0) + 1;
+            return acc;
+          } else{
+            acc["Unknown"] = (acc["Unknown"] || 0) + 1;
+            return acc;
+          }
+        }, {});
+
+
+        const countryResult = countryData.reduce((acc, currVal) => {
 
             const dataType = currVal.user_country === null ? 'Unknown' : currVal.user_country;
             acc[dataType] = (acc[dataType] || 0) + 1;
@@ -139,16 +152,14 @@ export default function Cards() {
           
         }, {});
         const referrerResult = referrerData.reduce((acc, currVal) => {
-          if(currVal.referrer !== ""){
+          if(currVal.referrer !== "" && currVal.referrer !== null){
             const dataType = currVal.referrer;
             acc[dataType] = (acc[dataType] || 0) + 1;
             return acc;
-
-          } else {
-            acc['Unknown'] = (acc['Unknown'] || 0) + 1;
+          } else{
+            acc["Unknown"] = (acc["Unknown"] || 0) + 1;
             return acc;
           }
-          
         }, {});
       
 
@@ -179,11 +190,12 @@ export default function Cards() {
         }
         
       }).sort((a, b) => b.value - a.value);
-      const counrtyPieData  = Object.keys(coutryResult).map((key, index) => {
+
+      const counrtyPieData  = Object.keys(countryResult).map((key, index) => {
 
         return {
           id: index,
-          value: referrerResult[key],
+          value: countryResult[key],
           label: key
         }
         
@@ -286,6 +298,11 @@ export default function Cards() {
                         ]}
                         slotProps={{
                           legend: {
+                            direction: 'column',
+                            position: { 
+                              vertical: 'middle', 
+                              horizontal: 'right' 
+                            },
                             itemMarkWidth: 8,
                             itemMarkHeight: 2,
                             markGap: 5,
@@ -293,6 +310,7 @@ export default function Cards() {
                             labelStyle: {
                               fontSize: 13,
                             },
+                            padding: -200,
                           }
                         }}
       height={200}

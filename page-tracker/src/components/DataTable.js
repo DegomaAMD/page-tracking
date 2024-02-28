@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import PersonalVideoIcon from '@mui/icons-material/PersonalVideo';
 import StayPrimaryPortraitIcon from '@mui/icons-material/StayPrimaryPortrait';
+import PhonelinkOffIcon from '@mui/icons-material/PhonelinkOff';
 import Tooltip from '@mui/material/Tooltip';
 import Vietnam from '../assets/img/vietnam.png';
 import Worldwide from '../assets/img/worldwide.png';
@@ -45,7 +46,7 @@ const columns = [
     name: "link",
     label: "LINK",
     options: {
-      filter: true,
+      filter: false,
       sort: false
     }
   },
@@ -174,22 +175,23 @@ export default function DataTable() {
 
               return url.pathname;
             }
+
             
             return [  <Box sx={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center', gap: '10px'}}>
                         <Tooltip title={d.user_country === null ? 'unknown' : d.user_country}>
-                          {d.user_country === 'Unknown' || d.user_country === 'Local' ? <img src={Worldwide} alt='world icon' style={{width: '20px'}}/> : <img src={`https://flagsapi.com/${d.user_country}/flat/64.png`} style={{width: '20px'}}/>}
+                          {d.user_country === 'Unknown' && d.user_country === 'Local' ? <img src={Worldwide} alt='world icon' style={{width: '20px'}}/> : <img src={`https://flagsapi.com/${d.user_country}/flat/64.png`} style={{width: '20px'}}/>}
                         </Tooltip> {d.user_ip}
                       </Box>,
-                      paths(d.uri),
-                      <Link href={d.link} underline="none">{d.link}</Link>,
-                      d.host,
-                      d.referrer,
+                      d.uri !== null && d.uri !== "" ? paths(d.uri) : '',
+                      <Link href={d.link} underline="none">{d.link === null && d.link === "" ? '' : d.link}</Link>,
+                      d.host === null && d.host === "" ? '' : d.host,
+                      d.referrer === null &&  d.referrer === "" ? '' : d.referrer,
                       dateTimeFormat(d.clicked_on),
                       <Box sx={{display: 'flex', alignItems: 'center', gap: '10px'}}>
-                        <Tooltip title={d.device_type}>
-                            {d.device_type === 'desktop' ? <PersonalVideoIcon sx={{ fontSize: 15 }}/> : <StayPrimaryPortraitIcon sx={{ fontSize: 15 }}/>}
+                        <Tooltip title={d.device_type === null || d.device_type === "" ? "Unknown" : d.device_type}>
+                            {d.device_type === null || d.device_type === "" ? <PhonelinkOffIcon sx={{ fontSize: 15 }} /> : d.device_type === 'desktop' ? <PersonalVideoIcon sx={{ fontSize: 15 }}/> : <StayPrimaryPortraitIcon sx={{ fontSize: 15 }}/> }
                         </Tooltip>
-                        <Tooltip title={d.browser_type}>
+                        <Tooltip title={d.browser_type === null || d.browser_type === "" ? 'Unknown' : d.browser_type}>
                         {browserTypeIcon(d.browser_type, d.device_type)}
                         </Tooltip>
                       </Box>

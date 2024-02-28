@@ -75,7 +75,6 @@ function Vpn() {
         const clientData = {
             uri: window.location.href,
             link: window.location.href,
-            host: window.location.host,
             referrer: document.referrer,
             deviceType: getDeviceType(navigator.userAgent),
             browserType: getBrowser(navigator.userAgent),

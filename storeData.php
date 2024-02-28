@@ -21,6 +21,7 @@ $visitDateTime = date("Y-m-d H:i:s");
 
 
 $ip = $_SERVER['REMOTE_ADDR'];
+$hostname = gethostbyaddr($ip);
 $response = file_get_contents("http://ip-api.com/json/{$ip}?fields=countryCode");
 $data = json_decode($response, true);
 $countryCode = $data['countryCode'];
@@ -28,7 +29,17 @@ $countryCode = $data['countryCode'];
 
 
 $stmt = $conn->prepare("INSERT INTO user_info (user_country, user_ip, uri, link, host, referrer, clicked_on, device_type, browser_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("sssssssss", $countryCode, $ip, $clientData['uri'], $clientData['link'], $clientData['host'], $clientData['referrer'], $visitDateTime, $clientData['deviceType'], $clientData['browserType']);
+
+
+$uri = $clientData['uri'] ?? '';
+$link = $clientData['link'] ?? '';
+$referrer = $clientData['referrer'] ?? '';
+$deviceType = $clientData['deviceType'] ?? '';
+$browserType = $clientData['browserType'] ?? '';
+
+
+$stmt->bind_param("sssssssss", $countryCode, $ip, $uri, $link, $hostname, $referrer, $visitDateTime, $deviceType, $browserType);
+
 
 if ($stmt->execute()) {
     echo "Data captured and saved. ID: " . $stmt->insert_id;
